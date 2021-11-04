@@ -56,18 +56,25 @@ export const AuthProvider = ({ children }: any) => {
        // Hay token
        if (token) {
         const resp = await residuosApi.get('/auth');
+        console.log(resp);
+        
         if (resp.status !== 200) {
           return dispatch({type:'notAuthenticated'})
         }
         if (resp.status === 200) {
-            return dispatch({
-                type: 'signIn',
-                payload: {
-                    user: resp.data.user,
-                    token: resp.data.token,
-                    validar:true
-                }
-            })
+            if (!resp.data.ok) {
+                return dispatch({type:'notAuthenticated'})
+            }
+            else{
+                return dispatch({
+                    type: 'signIn',
+                    payload: {
+                        user: resp.data.user,
+                        token: resp.data.token,
+                        validar:true
+                    }
+                })
+            }
         }
        }
 
@@ -76,7 +83,9 @@ export const AuthProvider = ({ children }: any) => {
 
     const signIn = async ({ usuario, password }: LoginData) => {
         try {
-            const resp = await residuosApi.post<ResultLogin>('/auth/usuario', { usuario, password })
+            const resp = await residuosApi.post('/auth/usuario', { usuario, password })
+            console.log(resp);
+            
             if (resp.data.ok) {
                 dispatch({
                     type: 'signIn',
@@ -96,9 +105,11 @@ export const AuthProvider = ({ children }: any) => {
             }
 
         } catch (error: any) {
+            console.log(error);
+            
             dispatch({
                 type: 'addError',
-                payload: error.response.data.msg || 'Informacion Incorrecta'
+                payload: 'Informacion Incorrecta'
             })
 
         }
