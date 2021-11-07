@@ -1,0 +1,47 @@
+import { StyleSheet } from "react-native";
+
+export const logoutStyle = StyleSheet.create({
+    container:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'white'
+    },
+    image:{
+        width:200,
+        height:200
+    },
+    datos:{
+        width:'80%',
+        marginTop:20,
+        justifyContent:"center",
+        alignItems:'center'
+    },
+    datosText:{
+        fontSize:20,
+        fontWeight:"bold",
+        marginTop:10,
+        color:'black'
+    },
+    buttonDatos:{
+        backgroundColor:'#24a2af',
+        width:250,
+        height:40,
+        borderRadius:20,
+        justifyContent:'center',
+        alignItems:'center',
+        marginTop:50,
+        shadowOffset:{
+            width:0,
+            height:3
+        },
+        shadowOpacity:0.27,
+        shadowRadius:4.65,
+        elevation:6
+    },
+    textButton:{
+        color:'white',
+        fontSize:20,
+        fontWeight:'bold'
+    }
+});

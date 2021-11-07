@@ -1,22 +1,34 @@
 import React, { useContext } from 'react'
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Image } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
-import { mapaStyle } from '../theme/mapaTheme';
+import socket from '../socket/socketApi';
+import { logoutStyle } from '../theme/logoutTheme';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const MultasScreen = () => {
     const {logOut, user, token, validationMap} = useContext(AuthContext);
+    const logoutMap=()=>{
+        socket.emit('marcador-borrar', user?._id);
+        logOut();
+    }
     return (
-        <View style={mapaStyle.container}>
-           <Text>Mapas</Text> 
-            <Button
-                title="logout"
-                color="#5856d6"
-                onPress={logOut}
+        <View style={logoutStyle.container}>
+            <Image
+                source={{uri:'https://res.cloudinary.com/dertftoym/image/upload/v1636324774/user_1_qmezph.png'}}
+                style={
+                    logoutStyle.image
+                }
             />
-            <Text>
-                {JSON.stringify(user, null,5)}
-                {JSON.stringify(validationMap, null,5)}
-            </Text>
+            <View style={logoutStyle.datos}>
+                <Text style={logoutStyle.datosText}>{user?.nombre}</Text>
+                <TouchableOpacity 
+                    activeOpacity={0.6}
+                    style={logoutStyle.buttonDatos}
+                    onPress={()=>{logoutMap()}}
+                >
+                    <Text style={logoutStyle.textButton}>Cerrar Sesion</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }

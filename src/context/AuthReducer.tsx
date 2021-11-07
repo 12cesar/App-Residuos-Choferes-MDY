@@ -7,12 +7,13 @@ export interface AuthState{
     token:string | null;
     errorMessage:string;
     user:Usuario | null;
+    conduccion:string | null;
     locationState: PermissionStatus;
     validationMap:boolean
 }
 
 export type AuthAction =
-                | {type: 'signIn', payload:{token:string, user:Usuario, validar:boolean}}
+                | {type: 'signIn', payload:{token:string, user:Usuario, conduccion: string}}
                 | {type: 'askLocationPermission', payload: PermissionStatus}
                 | {type: 'checkLocationPermission'}
                 | {type: 'addError', payload:string}
@@ -43,7 +44,7 @@ export const authReducer=(state: AuthState, action: AuthAction): AuthState=>{
                 status:'authenticated',
                 token: action.payload.token,
                 user: action.payload.user,
-                validationMap:action.payload.validar
+                conduccion:action.payload.conduccion
             }
         case 'mapValidation':
             return {

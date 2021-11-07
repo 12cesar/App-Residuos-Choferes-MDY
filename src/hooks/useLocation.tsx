@@ -9,7 +9,7 @@ import { AuthContext } from '../context/AuthContext';
 
 export const useLocation = () => {
 
-    const {user} = useContext(AuthContext)
+    const {user, conduccion} = useContext(AuthContext)
     const [hasLocation, setHasLocation] = useState(false);
     const [routeLine, setRouteLine] = useState<Location[]>([]);
     const [initialPosition, setInitialPosition] = useState<Location>({
@@ -93,11 +93,14 @@ export const useLocation = () => {
     }
     
     const mostrarMarcador=()=>{
+        console.log(conduccion);
+        
         const customMarker:Lugar={
             id: user!._id,
             lng: userLocation.longitude,
             lat: userLocation.latitude,
             nombre: user!.nombre,
+            vehiculo:conduccion!,
             color:'#' + Math.floor(Math.random()*16777215).toString(16) 
         }
         socket.emit('marcador-nuevo',customMarker);

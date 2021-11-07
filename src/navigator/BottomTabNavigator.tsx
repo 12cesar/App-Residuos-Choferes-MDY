@@ -26,12 +26,12 @@ export const BottonTabNavigator = () => {
               iconName = 'navigate-outline'
               break;
             case 'Multas':
-              iconName = 'document-text-outline'
+              iconName = 'log-out-outline'
               break;
             default:
               break;
           }
-          return <Text style={{ color }}><Icon name={iconName} size={25} color='black' /></Text>
+          return <Text style={{ color }}><Icon name={iconName} size={25} color={color} /></Text>
         },
         tabBarLabelStyle:{
           fontSize:15,
@@ -40,7 +40,7 @@ export const BottonTabNavigator = () => {
 
     >
       <Tab.Screen name="Mapas" component={MapasScreen} />
-      <Tab.Screen name="Multas" component={MultasScreen} />
+      <Tab.Screen name="Multas" options={{title:"Cerrar Sesion"}}  component={MultasScreen} />
     </Tab.Navigator>
   );
 }

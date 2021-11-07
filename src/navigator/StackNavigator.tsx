@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../screen/LoginScreen';
 import { PrivateScreen } from '../screen/PrivateScreen';
@@ -7,6 +7,7 @@ import { AuthContext } from '../context/AuthContext';
 import { LoadingScreen } from '../screen/LoadingScreen';
 import { PermisoMapScreen } from '../screen/PermisoMapScreen';
 import { BottonTabNavigator } from './BottomTabNavigator';
+import socket from '../socket/socketApi';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ export const StackNavigator=() =>{
 
   if (status === 'checking') return <LoadingScreen/>
 
+  
   return (
     <Stack.Navigator
         screenOptions={{

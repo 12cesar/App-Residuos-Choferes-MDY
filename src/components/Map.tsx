@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import MapView, { Marker, Polyline } from 'react-native-maps'
-import Geolocation from '@react-native-community/geolocation';
+import MapView, { Polyline } from 'react-native-maps'
 import { useLocation } from '../hooks/useLocation';
 import { LoadingScreen } from '../screen/LoadingScreen';
 import { Fab } from './Fab';
@@ -9,7 +8,7 @@ import { AuthContext } from '../context/AuthContext';
 import socket from '../socket/socketApi';
 export const Map = () => {
 
-    const {user, status, validarMap, validationMap} = useContext(AuthContext)
+    const {user, validarMap, validationMap} = useContext(AuthContext);
 
     let { width, height } = Dimensions.get('window');
     const ASPECT_RATIO = width / height
@@ -19,7 +18,6 @@ export const Map = () => {
     const [showPolyline, setShowPolyline] = useState(true);
     const mapViewRef = useRef<MapView>();
     const following = useRef<boolean>(true)
-    const socketMap = useRef<boolean>(false);
     useEffect(() => {
         followUserLocation();
         return () => {
@@ -49,12 +47,15 @@ export const Map = () => {
         
     }, [userLocation])
     const mostrarMarcadores = ()=>{
-        mostrarMarcador();
         validarMap();
+        mostrarMarcador();
+        
+        
     }
     if (!hasLocation) {
         return <LoadingScreen />
     }
+    
     return (
         <>
             <MapView
